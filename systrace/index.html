@@ -1,0 +1,630 @@
+<!DOCTYPE HTML>
+<html lang="en" >
+    
+    <head>
+        
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title>systrace | </title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 2.1.0">
+        
+        
+        <meta name="HandheldFriendly" content="true"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+        <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+        
+    <link rel="stylesheet" href="../gitbook/style.css">
+    
+    
+
+        
+    
+    
+    
+    <link rel="prev" href="../linux_kernel/page_reclaim.html" />
+    
+
+        
+    </head>
+    <body>
+        
+        
+    <div class="book" data-level="3" data-basepath=".." data-revision="Tue Jul 21 2015 16:09:14 GMT+0800 (CST)">
+    
+
+<div class="book-summary">
+    <div class="book-search">
+        <input type="text" placeholder="Type to search" class="form-control" />
+    </div>
+    <ul class="summary">
+        
+        
+        
+        
+
+        
+
+        
+    
+        <li class="chapter " data-level="0" data-path="index.html">
+            
+                
+                    <a href="../index.html">
+                        <i class="fa fa-check"></i>
+                        
+                        Introduction
+                    </a>
+                
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1" data-path="ubuntu/index.html">
+            
+                
+                    <a href="../ubuntu/index.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.</b>
+                        
+                        Ubuntu
+                    </a>
+                
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2" data-path="linux_kernel/index.html">
+            
+                
+                    <a href="../linux_kernel/index.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.</b>
+                        
+                        Linux Kernel
+                    </a>
+                
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1" data-path="linux_kernel/reverse_mapping.html">
+            
+                
+                    <a href="../linux_kernel/reverse_mapping.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.1.</b>
+                        
+                        reverse mapping
+                    </a>
+                
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2" data-path="linux_kernel/page_reclaim.html">
+            
+                
+                    <a href="../linux_kernel/page_reclaim.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.2.</b>
+                        
+                        page reclaim
+                    </a>
+                
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter active" data-level="3" data-path="systrace/index.html">
+            
+                
+                    <a href="../systrace/index.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.</b>
+                        
+                        systrace
+                    </a>
+                
+            
+            
+        </li>
+    
+
+
+        
+        <li class="divider"></li>
+        <li>
+            <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+                Published with GitBook
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+    <div class="book-body">
+        <div class="body-inner">
+            <div class="book-header">
+    <!-- Actions Left -->
+    <a href="#" class="btn pull-left toggle-summary" aria-label="Table of Contents"><i class="fa fa-align-justify"></i></a>
+    <a href="#" class="btn pull-left toggle-search" aria-label="Search"><i class="fa fa-search"></i></a>
+    
+    <div id="font-settings-wrapper" class="dropdown pull-left">
+        <a href="#" class="btn toggle-dropdown" aria-label="Font Settings"><i class="fa fa-font"></i>
+        </a>
+        <div class="dropdown-menu font-settings">
+    <div class="dropdown-caret">
+        <span class="caret-outer"></span>
+        <span class="caret-inner"></span>
+    </div>
+
+    <div class="buttons">
+        <button type="button" id="reduce-font-size" class="button size-2">A</button>
+        <button type="button" id="enlarge-font-size" class="button size-2">A</button>
+    </div>
+
+    <div class="buttons font-family-list">
+        <button type="button" data-font="0" class="button">Serif</button>
+        <button type="button" data-font="1" class="button">Sans</button>
+    </div>
+
+    <div class="buttons color-theme-list">
+        <button type="button" id="color-theme-preview-0" class="button size-3" data-theme="0">White</button>
+        <button type="button" id="color-theme-preview-1" class="button size-3" data-theme="1">Sepia</button>
+        <button type="button" id="color-theme-preview-2" class="button size-3" data-theme="2">Night</button>
+    </div>
+</div>
+
+    </div>
+
+    <!-- Actions Right -->
+    
+    <div class="dropdown pull-right">
+        <a href="#" class="btn toggle-dropdown" aria-label="Share"><i class="fa fa-share-alt"></i>
+        </a>
+        <div class="dropdown-menu font-settings dropdown-left">
+            <div class="dropdown-caret">
+                <span class="caret-outer"></span>
+                <span class="caret-inner"></span>
+            </div>
+            <div class="buttons">
+                <button type="button" data-sharing="twitter" class="button">
+                    Share on Twitter
+                </button>
+                <button type="button" data-sharing="google-plus" class="button">
+                    Share on Google
+                </button>
+                <button type="button" data-sharing="facebook" class="button">
+                    Share on Facebook
+                </button>
+                <button type="button" data-sharing="weibo" class="button">
+                    Share on Weibo
+                </button>
+                <button type="button" data-sharing="instapaper" class="button">
+                    Share on Instapaper
+                </button>
+            </div>
+        </div>
+    </div>
+    
+
+    
+    <a href="#" target="_blank" class="btn pull-right google-plus-sharing-link sharing-link" data-sharing="google-plus" aria-label="Google"><i class="fa fa-google-plus"></i></a>
+    
+    
+    <a href="#" target="_blank" class="btn pull-right facebook-sharing-link sharing-link" data-sharing="facebook" aria-label="Facebook"><i class="fa fa-facebook"></i></a>
+    
+    
+    <a href="#" target="_blank" class="btn pull-right twitter-sharing-link sharing-link" data-sharing="twitter" aria-label="Twitter"><i class="fa fa-twitter"></i></a>
+    
+    
+    
+
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../" ></a>
+    </h1>
+</div>
+
+            <div class="page-wrapper" tabindex="-1">
+                <div class="page-inner">
+                
+                
+                    <section class="normal" id="section-">
+                    
+                        <h1 id="systrace">Systrace</h1>
+<ul>
+<li><p>Source Code</p>
+<ul>
+<li>frameworks/native/cmds/atrace/atrace.cpp</li>
+<li>system/core/include/utils/Trace.h</li>
+<li>system/core/include/cutils/trace.h</li>
+<li>sdk/platform-tools/systrace/systrace.py</li>
+</ul>
+</li>
+<li><p>How to enable from Android sdk tool</p>
+<ul>
+<li>python systrace.py --time=10 -o mynewtrace.html sched gfx view wm</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Default enable options (system property)<ul>
+<li>debug.atrace.tags.enableflags (0xe)</li>
+<li>ATRACE_TAG_GRAPHICS (1&lt;&lt;1), ATRACE_TAG_INPUT (1&lt;&lt;2), ATRACE_TAG_VIEW (1&lt;&lt;3)</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>How to add Systrace(Atrace) log in source code<ul>
+<li>java<ul>
+<li>Use traceBegin and traceEnd function defined in Trace.java</li>
+<li>example<ul>
+<li><strong>Trace.traceBegin(Trace.TRACE_TAG_ACTIVITY_MANAGER, &quot;updateOomAdjLocked&quot;);</strong></li>
+<li><strong>Trace.traceEnd(Trace.TRACE_TAG_ACTIVITY_MANAGER);</strong></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>C code<ul>
+<li>Need define ATRACE_TAG first and use ATRACE_CALL() macro</li>
+<li>Example (SurfaceFlinger.cpp)<ul>
+<li>#define ATRACE_TAG ATRACE_TAG_GRAPHICS</li>
+<li>ATRACE_CALL();</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<pre><code class="lang-java"><span class="hljs-comment">// using Trace.traceBegin and Trace.traceEnd</span>
+<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">syncAll</span><span class="hljs-params">(<span class="hljs-keyword">int</span> srcLocation)</span> </span>{
+    Trace.traceBegin(RenderScript.TRACE_TAG, <span class="hljs-string">&quot;syncAll&quot;</span>);
+    <span class="hljs-keyword">switch</span> (srcLocation) {
+    <span class="hljs-keyword">case</span> USAGE_GRAPHICS_TEXTURE:
+    <span class="hljs-keyword">case</span> USAGE_SCRIPT:
+        <span class="hljs-keyword">if</span> ((mUsage &amp; USAGE_SHARED) != <span class="hljs-number">0</span>) {
+            copyFrom(mBitmap);
+        }
+        <span class="hljs-keyword">break</span>;
+    <span class="hljs-keyword">case</span> USAGE_GRAPHICS_CONSTANTS:
+    <span class="hljs-keyword">case</span> USAGE_GRAPHICS_VERTEX:
+        <span class="hljs-keyword">break</span>;
+    <span class="hljs-keyword">case</span> USAGE_SHARED:
+        <span class="hljs-keyword">if</span> ((mUsage &amp; USAGE_SHARED) != <span class="hljs-number">0</span>) {
+            copyTo(mBitmap);
+        }
+        <span class="hljs-keyword">break</span>;
+    <span class="hljs-keyword">default</span>:
+        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> RSIllegalArgumentException(<span class="hljs-string">&quot;Source must be exactly one usage type.&quot;</span>);
+    }
+    mRS.validate();
+    mRS.nAllocationSyncAll(getIDSafe(), srcLocation);
+    Trace.traceEnd(RenderScript.TRACE_TAG);
+}
+</code></pre>
+<pre><code class="lang-cpp"><span class="hljs-comment">// SurfaceFlinger.cpp</span>
+<span class="hljs-preprocessor">#<span class="hljs-keyword">define</span> ATRACE_TAG ATRACE_TAG_GRAPHICS</span>
+
+<span class="hljs-keyword">void</span> SurfaceFlinger::eventControl(<span class="hljs-keyword">int</span> disp, <span class="hljs-keyword">int</span> event, <span class="hljs-keyword">int</span> enabled) {
+    ATRACE_CALL();
+    getHwComposer().eventControl(disp, event, enabled);
+}
+</code></pre>
+<ul>
+<li>Framework Trace Enable<ul>
+<li>Change the system property</li>
+</ul>
+</li>
+</ul>
+<pre><code class="lang-java"><span class="hljs-comment">// Trace.java</span>
+SystemProperties.addChangeCallback(<span class="hljs-keyword">new</span> Runnable() {
+    <span class="hljs-annotation">@Override</span> <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">run</span><span class="hljs-params">()</span> </span>{
+        cacheEnabledTags();
+    }
+});
+
+<span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">long</span> <span class="hljs-title">cacheEnabledTags</span><span class="hljs-params">()</span> </span>{
+    <span class="hljs-keyword">long</span> tags = nativeGetEnabledTags();
+    sEnabledTags = tags;
+    <span class="hljs-keyword">return</span> tags;
+}
+</code></pre>
+<pre><code class="lang-cpp"><span class="hljs-comment">// android_os_Trace.cpp</span>
+<span class="hljs-keyword">static</span> JNINativeMethod gTraceMethods[] = {
+    <span class="hljs-comment">/* name, signature, funcPtr */</span>
+    { <span class="hljs-string">&quot;nativeGetEnabledTags&quot;</span>,
+            <span class="hljs-string">&quot;()J&quot;</span>,
+            (<span class="hljs-keyword">void</span>*)android_os_Trace_nativeGetEnabledTags },
+};
+
+<span class="hljs-function"><span class="hljs-keyword">static</span> jlong <span class="hljs-title">android_os_Trace_nativeGetEnabledTags</span><span class="hljs-params">(JNIEnv* env, jclass clazz)</span> </span>{
+    <span class="hljs-keyword">return</span> atrace_get_enabled_tags();
+}
+</code></pre>
+<pre><code class="lang-cpp"><span class="hljs-comment">// trace.h</span>
+<span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">inline</span> uint64_t <span class="hljs-title">atrace_get_enabled_tags</span><span class="hljs-params">()</span>
+</span>{
+    atrace_init();
+    <span class="hljs-keyword">return</span> atrace_enabled_tags;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">atrace_init</span><span class="hljs-params">()</span>
+</span>{
+    <span class="hljs-keyword">if</span> (CC_UNLIKELY(!android_atomic_acquire_load(&amp;atrace_is_ready))) {
+        atrace_setup();
+    }
+}
+</code></pre>
+<pre><code class="lang-cpp"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">atrace_setup</span><span class="hljs-params">()</span>
+</span>{
+    pthread_once(&amp;atrace_once_control, atrace_init_once);
+}
+
+<span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">atrace_init_once</span><span class="hljs-params">()</span>
+</span>{
+    atrace_marker_fd = open(<span class="hljs-string">&quot;/sys/kernel/debug/tracing/trace_marker&quot;</span>, O_WRONLY);
+    <span class="hljs-keyword">if</span> (atrace_marker_fd == -<span class="hljs-number">1</span>) {
+        ALOGE(<span class="hljs-string">&quot;Error opening trace file: %s (%d)&quot;</span>, strerror(errno), errno);
+        atrace_enabled_tags = <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">goto</span> done;
+    }
+
+    atrace_enabled_tags = atrace_get_property();
+
+done:
+    android_atomic_release_store(<span class="hljs-number">1</span>, &amp;atrace_is_ready);
+}
+
+<span class="hljs-function"><span class="hljs-keyword">static</span> uint64_t <span class="hljs-title">atrace_get_property</span><span class="hljs-params">()</span>
+</span>{
+    <span class="hljs-keyword">char</span> value[PROPERTY_VALUE_MAX];
+    <span class="hljs-keyword">char</span> *endptr;
+    uint64_t tags;
+
+    property_get(<span class="hljs-string">&quot;debug.atrace.tags.enableflags&quot;</span>, value, <span class="hljs-string">&quot;0&quot;</span>);
+    errno = <span class="hljs-number">0</span>;
+    tags = strtoull(value, &amp;endptr, <span class="hljs-number">0</span>);
+
+    <span class="hljs-comment">// Only set the &quot;app&quot; tag if this process was selected for app-level debug</span>
+    <span class="hljs-comment">// tracing.</span>
+    <span class="hljs-keyword">if</span> (atrace_is_app_tracing_enabled()) {
+        tags |= ATRACE_TAG_APP;
+    } <span class="hljs-keyword">else</span> {
+        tags &amp;= ~ATRACE_TAG_APP;
+    }
+
+    <span class="hljs-keyword">return</span> (tags | ATRACE_TAG_ALWAYS) &amp; ATRACE_TAG_VALID_MASK;
+}
+</code></pre>
+<pre><code class="lang-cpp"><span class="hljs-comment">// Trace.h</span>
+<span class="hljs-preprocessor">#<span class="hljs-keyword">define</span> ATRACE_NAME(name) android::ScopedTrace ___tracer(ATRACE_TAG, name)</span>
+<span class="hljs-comment">// ATRACE_CALL is an ATRACE_NAME that uses the current function name.</span>
+<span class="hljs-preprocessor">#<span class="hljs-keyword">define</span> ATRACE_CALL() ATRACE_NAME(__FUNCTION__)</span>
+</code></pre>
+<ul>
+<li>atrace.cpp</li>
+</ul>
+<pre><code class="lang-cpp"><span class="hljs-keyword">struct</span> TracingCategory {
+    <span class="hljs-comment">// The name identifying the category.</span>
+    <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span>* name;
+
+    <span class="hljs-comment">// A longer description of the category.</span>
+    <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span>* longname;
+
+    <span class="hljs-comment">// The userland tracing tags that the category enables.</span>
+    uint64_t tags;
+
+    <span class="hljs-comment">// The fname==NULL terminated list of /sys/ files that the category</span>
+    <span class="hljs-comment">// enables.</span>
+    <span class="hljs-keyword">struct</span> {
+        <span class="hljs-comment">// Whether the file must be writable in order to enable the tracing</span>
+        <span class="hljs-comment">// category.</span>
+        requiredness required;
+
+        <span class="hljs-comment">// The path to the enable file.</span>
+        <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span>* path;
+    } sysfiles[MAX_SYS_FILES];
+};
+</code></pre>
+<pre><code class="lang-cpp"><span class="hljs-keyword">static</span> <span class="hljs-keyword">const</span> TracingCategory k_categories[] = {
+    { <span class="hljs-string">&quot;memreclaim&quot;</span>, <span class="hljs-string">&quot;Kernel Memory Reclaim&quot;</span>, <span class="hljs-number">0</span>, {
+        { REQ,      <span class="hljs-string">&quot;/sys/kernel/debug/tracing/events/vmscan/mm_vmscan_direct_reclaim_begin/enable&quot;</span> },
+        { REQ,      <span class="hljs-string">&quot;/sys/kernel/debug/tracing/events/vmscan/mm_vmscan_direct_reclaim_end/enable&quot;</span> },
+        { REQ,      <span class="hljs-string">&quot;/sys/kernel/debug/tracing/events/vmscan/mm_vmscan_kswapd_wake/enable&quot;</span> },
+        { REQ,      <span class="hljs-string">&quot;/sys/kernel/debug/tracing/events/vmscan/mm_vmscan_kswapd_sleep/enable&quot;</span> },
+    } },
+};
+</code></pre>
+<pre><code class="lang-java"><span class="hljs-function"><span class="hljs-keyword">static</span> bool <span class="hljs-title">setUpTrace</span><span class="hljs-params">()</span>
+</span>{
+    bool ok = <span class="hljs-keyword">true</span>;
+
+    <span class="hljs-comment">// Set up the tracing options.</span>
+    ok &amp;= setTraceOverwriteEnable(g_traceOverwrite);
+    ok &amp;= setTraceBufferSizeKB(g_traceBufferSizeKB);
+    ok &amp;= setGlobalClockEnable(<span class="hljs-keyword">true</span>);
+
+    <span class="hljs-comment">/*
+     * M: Disable by MTK
+     */</span>
+    <span class="hljs-comment">//ok &amp;= setPrintTgidEnableIfPresent(true);</span>
+    ok &amp;= setKernelTraceFuncs(g_kernelTraceFuncs);
+
+    <span class="hljs-comment">/*
+     * M: Enable process name logging
+     */</span>
+    ok &amp;= setTraceRecordcmdEnable(<span class="hljs-keyword">true</span>);
+
+    <span class="hljs-comment">// Set up the tags property.</span>
+    uint64_t tags = <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; NELEM(k_categories); i++) {
+        <span class="hljs-keyword">if</span> (g_categoryEnables[i]) {
+            <span class="hljs-keyword">const</span> TracingCategory &amp;c = k_categories[i];
+            tags |= c.tags;
+        }
+}
+
+    ok &amp;= setTagsProperty(tags);
+    ok &amp;= setAppCmdlineProperty(g_debugAppCmdLine);
+    ok &amp;= pokeBinderServices();
+
+    <span class="hljs-comment">// Disable all the sysfs enables.  This is done as a separate loop from</span>
+    <span class="hljs-comment">// the enables to allow the same enable to exist in multiple categories.</span>
+    ok &amp;= disableKernelTraceEvents();
+
+    <span class="hljs-comment">// Enable all the sysfs enables that are in an enabled category.</span>
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; NELEM(k_categories); i++) {
+        <span class="hljs-keyword">if</span> (g_categoryEnables[i]) {
+            <span class="hljs-keyword">const</span> TracingCategory &amp;c = k_categories[i];
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt; MAX_SYS_FILES; j++) {
+                <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span>* path = c.sysfiles[j].path;
+                bool required = c.sysfiles[j].required == REQ;
+                <span class="hljs-keyword">if</span> (path != NULL) {
+                    <span class="hljs-keyword">if</span> (fileIsWritable(path)) {
+setCategoryEnable(argv[isetCategoryEnable(argv[ible(path, <span class="hljs-keyword">true</span>);
+                    } <span class="hljs-function"><span class="hljs-keyword">else</span> <span class="hljs-title">if</span> <span class="hljs-params">(required)</span> </span>{
+                        fprintf(stderr, <span class="hljs-string">&quot;error writing file %s\n&quot;</span>, path);
+                        ok = <span class="hljs-keyword">false</span>;
+                    }
+                }
+            }
+        }
+    }
+
+    <span class="hljs-keyword">return</span> ok;
+}
+</code></pre>
+<pre><code class="lang-java"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-keyword">int</span> argc, <span class="hljs-keyword">char</span> **argv)</span>
+</span>{
+
+    <span class="hljs-keyword">for</span> (;;) {
+        <span class="hljs-keyword">int</span> ret;
+        <span class="hljs-keyword">int</span> option_index = <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">static</span> struct option long_options[] = {
+            {<span class="hljs-string">&quot;async_start&quot;</span>,     no_argument, <span class="hljs-number">0</span>,  <span class="hljs-number">0</span> },
+            {<span class="hljs-string">&quot;async_stop&quot;</span>,      no_argument, <span class="hljs-number">0</span>,  <span class="hljs-number">0</span> },
+            {<span class="hljs-string">&quot;async_dump&quot;</span>,      no_argument, <span class="hljs-number">0</span>,  <span class="hljs-number">0</span> },
+            {<span class="hljs-string">&quot;list_categories&quot;</span>, no_argument, <span class="hljs-number">0</span>,  <span class="hljs-number">0</span> },
+            {<span class="hljs-string">&quot;poke_services&quot;</span>,   no_argument, <span class="hljs-number">0</span>,  <span class="hljs-number">0</span> },
+            {           <span class="hljs-number">0</span>,                <span class="hljs-number">0</span>, <span class="hljs-number">0</span>,  <span class="hljs-number">0</span> }
+        };
+
+        ret = getopt_long(argc, argv, <span class="hljs-string">&quot;a:b:ck:ns:t:z&quot;</span>,
+                          long_options, &amp;option_index);
+
+        <span class="hljs-keyword">if</span> (ret &lt; <span class="hljs-number">0</span>) {
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = optind; i &lt; argc; i++) {
+                <span class="hljs-keyword">if</span> (!setCategoryEnable(argv[i], <span class="hljs-keyword">true</span>)) {
+                    fprintf(stderr, <span class="hljs-string">&quot;error enabling tracing category \&quot;%s\&quot;\n&quot;</span>, argv[i]);
+                    exit(<span class="hljs-number">1</span>);
+                }
+            }
+            <span class="hljs-keyword">break</span>;
+        }
+
+    }
+
+
+    bool ok = <span class="hljs-keyword">true</span>;
+    ok &amp;= setUpTrace();
+    ok &amp;= startTrace();
+
+    <span class="hljs-keyword">if</span> (ok &amp;&amp; traceStart) {
+        printf(<span class="hljs-string">&quot;capturing trace...&quot;</span>);
+        fflush(stdout);
+
+        <span class="hljs-comment">// We clear the trace after starting it because tracing gets enabled for</span>
+        <span class="hljs-comment">// each CPU individually in the kernel. Having the beginning of the trace</span>
+        <span class="hljs-comment">// contain entries from only one CPU can cause &quot;begin&quot; entries without a</span>
+        <span class="hljs-comment">// matching &quot;end&quot; entry to show up if a task gets migrated from one CPU to</span>
+        <span class="hljs-comment">// another.</span>
+        ok = clearTrace();
+
+        <span class="hljs-keyword">if</span> (ok &amp;&amp; !async) {
+            <span class="hljs-comment">// Sleep to allow the trace to be captured.</span>
+            struct timespec timeLeft;
+            timeLeft.tv_sec = g_traceDurationSeconds;
+            timeLeft.tv_nsec = <span class="hljs-number">0</span>;
+            do {
+                <span class="hljs-keyword">if</span> (g_traceAborted) {
+                    <span class="hljs-keyword">break</span>;
+                }
+            } <span class="hljs-keyword">while</span> (nanosleep(&amp;timeLeft, &amp;timeLeft) == -<span class="hljs-number">1</span> &amp;&amp; errno == EINTR);
+        }
+    }
+
+    <span class="hljs-comment">// Stop the trace and restore the default settings.</span>
+    <span class="hljs-keyword">if</span> (traceStop)
+        stopTrace();
+
+    <span class="hljs-keyword">if</span> (ok &amp;&amp; traceDump) {
+        <span class="hljs-keyword">if</span> (!g_traceAborted) {
+            printf(<span class="hljs-string">&quot; done\nTRACE:\n&quot;</span>);
+            fflush(stdout);
+            dumpTrace();
+        } <span class="hljs-keyword">else</span> {
+            printf(<span class="hljs-string">&quot;\ntrace aborted.\n&quot;</span>);
+            fflush(stdout);
+        }
+        clearTrace();
+    } <span class="hljs-function"><span class="hljs-keyword">else</span> <span class="hljs-title">if</span> <span class="hljs-params">(!ok)</span> </span>{
+        fprintf(stderr, <span class="hljs-string">&quot;unable to start tracing\n&quot;</span>);
+    }
+
+    <span class="hljs-comment">// Reset the trace buffer size to 1.</span>
+    <span class="hljs-keyword">if</span> (traceStop)
+        cleanUpTrace();
+
+    <span class="hljs-keyword">return</span> g_traceAborted ? <span class="hljs-number">1</span> : <span class="hljs-number">0</span>;
+}
+</code></pre>
+
+                    
+                    </section>
+                
+                
+                </div>
+            </div>
+        </div>
+
+        
+        <a href="../linux_kernel/page_reclaim.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: page reclaim"><i class="fa fa-angle-left"></i></a>
+        
+        
+    </div>
+</div>
+
+        
+<script src="../gitbook/app.js"></script>
+
+<script>
+require(["gitbook"], function(gitbook) {
+    var config = {"fontSettings":{"theme":null,"family":"sans","size":2}};
+    gitbook.start(config);
+});
+</script>
+
+        
+    </body>
+    
+</html>
