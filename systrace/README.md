@@ -264,6 +264,9 @@ setCategoryEnable(argv[isetCategoryEnable(argv[ible(path, true);
     return ok;
 }
 ```
+- atrace.cpp
+- python systrace.py --time=100 -o mynewtrace.html sched gfx view wm memreclaim
+
 
 ```java
 int main(int argc, char **argv)
