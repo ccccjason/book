@@ -25,6 +25,8 @@
         
     
     
+    <link rel="next" href="../android/index.html" />
+    
     
     <link rel="prev" href="../linux_kernel/page_reclaim.html" />
     
@@ -34,7 +36,7 @@
     <body>
         
         
-    <div class="book" data-level="3" data-basepath=".." data-revision="Tue Jul 21 2015 16:12:30 GMT+0800 (CST)">
+    <div class="book" data-level="3" data-basepath=".." data-revision="Thu Jul 23 2015 11:05:09 GMT+0800 (CST)">
     
 
 <div class="book-summary">
@@ -145,6 +147,42 @@
             
         </li>
     
+        <li class="chapter " data-level="4" data-path="android/index.html">
+            
+                
+                    <a href="../android/index.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.</b>
+                        
+                        Android
+                    </a>
+                
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="4.1" data-path="android/resource.html">
+            
+                
+                    <a href="../android/resource.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.1.</b>
+                        
+                        resource
+                    </a>
+                
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
 
 
         
@@ -251,6 +289,32 @@
                     <section class="normal" id="section-">
                     
                         <h1 id="systrace">Systrace</h1>
+<p>android 4.3&#x7CFB;&#x7D71;&#x4E0A;&#xFF0C;&#x61C9;&#x7528;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;</p>
+<pre><code class="lang-java"><span class="hljs-keyword">import</span> android.os.Trace;
+Trace.beginSection(<span class="hljs-string">&quot;TEST&quot;</span>);
+Trace.endSection();
+</code></pre>
+<p>&#x6DFB;&#x52A0;systrace&#x8DDF;&#x8E64;&#xFF0C;&#x7136;&#x5F8C;&#x901A;&#x904E;thon systrace.py --app=TEST &#x6307;&#x5B9A;apk&#x3002;</p>
+<p>framework&#x7684;java&#x5C64;&#x4EE3;&#x78BC;&#x88E1;&#x9762;&#x6DFB;&#x52A0;systrace&#x8DDF;&#x8E64;&#x65B9;&#x5F0F;:</p>
+<pre><code class="lang-java"><span class="hljs-keyword">import</span> android.os.Trace;
+Trace.traceBegin(Trace.TRACE_TAG_VIEW, <span class="hljs-string">&quot;performTraversals&quot;</span>);
+Trace.traceEnd(Trace.TRACE_TAG_VIEW);
+</code></pre>
+<p>framework&#x7684;native&#x4EE3;&#x78BC;&#x53EF;&#x4EE5;&#x901A;&#x904E;</p>
+<pre><code class="lang-java"> #include &lt;utils/Trace.h&gt;
+ ATRACE_CALL();
+</code></pre>
+<p>&#x6DFB;&#x52A0;systrace&#x8DDF;&#x8E64;&#x65B9;&#x5F0F;:</p>
+<p>&#x7576;&#x7136;&#xFF0C;android 4.3&#x7CFB;&#x7D71;&#x4E0A;&#xFF0C;framework native&#x4E5F;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#xFF1A;</p>
+<pre><code class="lang-java"> #include &lt;cutils/trace.h&gt;
+ ATRACE_BEGIN(<span class="hljs-string">&quot;TEST&quot;</span>);
+ ATRACE_END();
+</code></pre>
+<p>&#x6DFB;&#x52A0;systrace&#x8DDF;&#x8E64;&#x65B9;&#x5F0F;
+android systrace&#x5DE5;&#x5177;&#x5E95;&#x5C64;&#x652F;&#x6301;&#x4F7F;&#x7528;&#x7684;&#x662F;Ftrace&#xFF0C;&#x6709;&#x6642;&#x9593;&#x7814;&#x7A76;&#x4E00;&#x4E0B;kernel&#x88E1;&#x9762;&#x662F;
+&#x600E;&#x9EBC;&#x4F7F;&#x7528;Ftrace&#x8DDF;&#x8E64;kernel&#x88E1;&#x9762;&#x7684;&#x51FD;&#x6578;&#x7684;&#x3002;&#x5509;&#xFF0C;&#x4EC0;&#x9EBC;&#x6642;&#x5019;&#x624D;&#x80FD;&#x5728;Android&#x7528;&#x4E0A;SystemTap&#x3001;DTrace
+&#x9019;&#x6A23;&#x7684;Dynamic Trace&#x5440;&#xFF01;&#xFF01;&#xFF01;</p>
+<hr>
 <ul>
 <li><p>Source Code</p>
 <ul>
@@ -612,8 +676,10 @@ setCategoryEnable(argv[isetCategoryEnable(argv[ible(path, <span class="hljs-keyw
         </div>
 
         
-        <a href="../linux_kernel/page_reclaim.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: page reclaim"><i class="fa fa-angle-left"></i></a>
+        <a href="../linux_kernel/page_reclaim.html" class="navigation navigation-prev " aria-label="Previous page: page reclaim"><i class="fa fa-angle-left"></i></a>
         
+        
+        <a href="../android/index.html" class="navigation navigation-next " aria-label="Next page: Android"><i class="fa fa-angle-right"></i></a>
         
     </div>
 </div>
