@@ -6,4 +6,6 @@
    * [reverse mapping](linux_kernel/reverse_mapping.md)
    * [page reclaim](linux_kernel/page_reclaim.md)
 * [systrace](systrace/README.md)
+* [Android](android/README.md)
+   * [resource](android/resource.md)
 

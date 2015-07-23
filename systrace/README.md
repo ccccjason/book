@@ -1,5 +1,41 @@
 # Systrace
 
+android 4.3系統上，應用可以使用
+```java
+import android.os.Trace;
+Trace.beginSection("TEST");
+Trace.endSection();
+```
+添加systrace跟蹤，然後通過thon systrace.py --app=TEST 指定apk。
+
+framework的java層代碼裡面添加systrace跟蹤方式:
+```java
+import android.os.Trace;
+Trace.traceBegin(Trace.TRACE_TAG_VIEW, "performTraversals");
+Trace.traceEnd(Trace.TRACE_TAG_VIEW);
+```
+
+
+framework的native代碼可以通過
+```java
+ #include <utils/Trace.h>
+ ATRACE_CALL();
+ ```
+添加systrace跟蹤方式:
+
+當然，android 4.3系統上，framework native也可以使用：
+```java
+ #include <cutils/trace.h>
+ ATRACE_BEGIN("TEST");
+ ATRACE_END();
+ ```
+添加systrace跟蹤方式
+android systrace工具底層支持使用的是Ftrace，有時間研究一下kernel裡面是
+怎麼使用Ftrace跟蹤kernel裡面的函數的。唉，什麼時候才能在Android用上SystemTap、DTrace
+這樣的Dynamic Trace呀！！！
+
+---
+
 - Source Code
     - frameworks/native/cmds/atrace/atrace.cpp
     - system/core/include/utils/Trace.h
