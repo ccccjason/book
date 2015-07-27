@@ -5,9 +5,9 @@
         
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <title>Introduction | </title>
+        <title>ATRACE_CALL | </title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <meta name="description" content="book">
+        <meta name="description" content="">
         <meta name="generator" content="GitBook 2.1.0">
         
         
@@ -15,18 +15,20 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
         <meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="apple-mobile-web-app-status-bar-style" content="black">
-        <link rel="apple-touch-icon-precomposed" sizes="152x152" href="gitbook/images/apple-touch-icon-precomposed-152.png">
-        <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
+        <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+        <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
         
-    <link rel="stylesheet" href="gitbook/style.css">
+    <link rel="stylesheet" href="../gitbook/style.css">
     
     
 
         
     
     
-    <link rel="next" href="./ubuntu/index.html" />
+    <link rel="next" href="../android/index.html" />
     
+    
+    <link rel="prev" href="../systrace/systracepy.html" />
     
 
         
@@ -34,7 +36,7 @@
     <body>
         
         
-    <div class="book" data-level="0" data-basepath="." data-revision="Mon Jul 27 2015 13:55:02 GMT+0800 (CST)">
+    <div class="book" data-level="3.2" data-basepath=".." data-revision="Mon Jul 27 2015 13:55:02 GMT+0800 (CST)">
     
 
 <div class="book-summary">
@@ -51,10 +53,10 @@
 
         
     
-        <li class="chapter active" data-level="0" data-path="index.html">
+        <li class="chapter " data-level="0" data-path="index.html">
             
                 
-                    <a href="./index.html">
+                    <a href="../index.html">
                         <i class="fa fa-check"></i>
                         
                         Introduction
@@ -67,7 +69,7 @@
         <li class="chapter " data-level="1" data-path="ubuntu/index.html">
             
                 
-                    <a href="./ubuntu/index.html">
+                    <a href="../ubuntu/index.html">
                         <i class="fa fa-check"></i>
                         
                             <b>1.</b>
@@ -82,7 +84,7 @@
         <li class="chapter " data-level="2" data-path="linux_kernel/index.html">
             
                 
-                    <a href="./linux_kernel/index.html">
+                    <a href="../linux_kernel/index.html">
                         <i class="fa fa-check"></i>
                         
                             <b>2.</b>
@@ -98,7 +100,7 @@
         <li class="chapter " data-level="2.1" data-path="linux_kernel/reverse_mapping.html">
             
                 
-                    <a href="./linux_kernel/reverse_mapping.html">
+                    <a href="../linux_kernel/reverse_mapping.html">
                         <i class="fa fa-check"></i>
                         
                             <b>2.1.</b>
@@ -113,7 +115,7 @@
         <li class="chapter " data-level="2.2" data-path="linux_kernel/page_reclaim.html">
             
                 
-                    <a href="./linux_kernel/page_reclaim.html">
+                    <a href="../linux_kernel/page_reclaim.html">
                         <i class="fa fa-check"></i>
                         
                             <b>2.2.</b>
@@ -133,7 +135,7 @@
         <li class="chapter " data-level="3" data-path="systrace/index.html">
             
                 
-                    <a href="./systrace/index.html">
+                    <a href="../systrace/index.html">
                         <i class="fa fa-check"></i>
                         
                             <b>3.</b>
@@ -149,7 +151,7 @@
         <li class="chapter " data-level="3.1" data-path="systrace/systracepy.html">
             
                 
-                    <a href="./systrace/systracepy.html">
+                    <a href="../systrace/systracepy.html">
                         <i class="fa fa-check"></i>
                         
                             <b>3.1.</b>
@@ -161,10 +163,10 @@
             
         </li>
     
-        <li class="chapter " data-level="3.2" data-path="systrace/systrace_flow.html">
+        <li class="chapter active" data-level="3.2" data-path="systrace/systrace_flow.html">
             
                 
-                    <a href="./systrace/systrace_flow.html">
+                    <a href="../systrace/systrace_flow.html">
                         <i class="fa fa-check"></i>
                         
                             <b>3.2.</b>
@@ -184,7 +186,7 @@
         <li class="chapter " data-level="4" data-path="android/index.html">
             
                 
-                    <a href="./android/index.html">
+                    <a href="../android/index.html">
                         <i class="fa fa-check"></i>
                         
                             <b>4.</b>
@@ -200,7 +202,7 @@
         <li class="chapter " data-level="4.1" data-path="android/resource.html">
             
                 
-                    <a href="./android/resource.html">
+                    <a href="../android/resource.html">
                         <i class="fa fa-check"></i>
                         
                             <b>4.1.</b>
@@ -312,7 +314,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="./" ></a>
+        <a href="../" ></a>
     </h1>
 </div>
 
@@ -322,7 +324,71 @@
                 
                     <section class="normal" id="section-">
                     
-                        <p>book</p>
+                        <h1 id="atrace-call">ATRACE_CALL</h1>
+<ul>
+<li>Trace.h</li>
+</ul>
+<pre><code class="lang-cpp"><span class="hljs-comment">// Trace.h</span>
+<span class="hljs-keyword">class</span> ScopedTrace
+{
+<span class="hljs-keyword">public</span>:
+    <span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-title">ScopedTrace</span><span class="hljs-params">(uint64_t tag, <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span>* name)</span>
+        : <span class="hljs-title">mTag</span><span class="hljs-params">(tag)</span>
+    </span>{
+        atrace_begin(mTag, name);
+    }
+
+    <span class="hljs-keyword">inline</span> ~ScopedTrace()
+    {
+        atrace_end(mTag);
+    }
+
+<span class="hljs-keyword">private</span>:
+    uint64_t mTag;
+};
+</code></pre>
+<ul>
+<li>trace.h</li>
+</ul>
+<pre><code class="lang-cpp"><span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">atrace_begin</span><span class="hljs-params">(uint64_t tag, <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span>* name)</span>
+</span>{
+    <span class="hljs-keyword">if</span> (CC_UNLIKELY(atrace_is_tag_enabled(tag))) {
+        <span class="hljs-keyword">char</span> buf[<span class="hljs-number">1024</span>];
+        size_t len;
+
+        <span class="hljs-comment">//  pid , function name</span>
+        len = <span class="hljs-built_in">snprintf</span>(buf, <span class="hljs-number">1024</span>, <span class="hljs-string">&quot;B|%d|%s&quot;</span>, getpid(), name);
+        write(atrace_marker_fd, buf, len);
+    }
+}
+
+<span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">atrace_end</span><span class="hljs-params">(uint64_t tag)</span>
+</span>{
+    <span class="hljs-keyword">if</span> (CC_UNLIKELY(atrace_is_tag_enabled(tag))) {
+        <span class="hljs-keyword">char</span> c = <span class="hljs-string">&apos;E&apos;</span>;
+        write(atrace_marker_fd, &amp;c, <span class="hljs-number">1</span>);
+    }
+}
+</code></pre>
+<pre><code class="lang-cpp"><span class="hljs-comment">// Trace.h</span>
+<span class="hljs-preprocessor">#<span class="hljs-keyword">define</span> ATRACE_NAME(name) android::ScopedTrace ___tracer(ATRACE_TAG, name)</span>
+<span class="hljs-preprocessor">#<span class="hljs-keyword">define</span> ATRACE_CALL() ATRACE_NAME(__FUNCTION__)</span>
+</code></pre>
+<pre><code class="lang-cpp"><span class="hljs-comment">// trace.h</span>
+<span class="hljs-preprocessor">#<span class="hljs-keyword">define</span> ATRACE_TAG_NEVER            0</span>
+<span class="hljs-preprocessor">#<span class="hljs-keyword">define</span> ATRACE_TAG ATRACE_TAG_NEVER</span>
+</code></pre>
+<ul>
+<li>main.cpp</li>
+</ul>
+<pre><code class="lang-cpp"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-keyword">int</span> argc, <span class="hljs-keyword">char</span> *argv[])</span>
+</span>{
+    <span class="hljs-comment">// ATRACE_CALL();  &#x5C55;&#x958B;&#x5F8C;&#x5982;&#x4E0B;</span>
+    android::ScopedTrace ___tracer(<span class="hljs-number">0</span>, __FUNCTION__);
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+}
+</code></pre>
+<p>end</p>
 
                     
                     </section>
@@ -333,14 +399,16 @@
         </div>
 
         
+        <a href="../systrace/systracepy.html" class="navigation navigation-prev " aria-label="Previous page: systrace.py"><i class="fa fa-angle-left"></i></a>
         
-        <a href="./ubuntu/index.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Ubuntu"><i class="fa fa-angle-right"></i></a>
+        
+        <a href="../android/index.html" class="navigation navigation-next " aria-label="Next page: Android"><i class="fa fa-angle-right"></i></a>
         
     </div>
 </div>
 
         
-<script src="gitbook/app.js"></script>
+<script src="../gitbook/app.js"></script>
 
 <script>
 require(["gitbook"], function(gitbook) {
