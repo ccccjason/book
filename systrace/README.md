@@ -19,7 +19,7 @@ Trace.traceEnd(Trace.TRACE_TAG_VIEW);
 framework的native代碼可以通過
 ```java
  #include <utils/Trace.h>
- ATRACE_CALL();
+ ();
  ```
 添加systrace跟蹤方式:
 
