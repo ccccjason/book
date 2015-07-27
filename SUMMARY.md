@@ -7,7 +7,7 @@
    * [page reclaim](linux_kernel/page_reclaim.md)
 * [systrace](systrace/README.md)
    * [systrace.py](systrace/systracepy.md)
-   * [systrace flow](systrace/systrace_flow.md)
+   * [ATRACE_CALL](systrace/systrace_flow.md)
 * [Android](android/README.md)
    * [resource](android/resource.md)
 
