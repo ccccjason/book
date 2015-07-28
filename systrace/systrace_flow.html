@@ -36,7 +36,7 @@
     <body>
         
         
-    <div class="book" data-level="3.2" data-basepath=".." data-revision="Mon Jul 27 2015 13:55:02 GMT+0800 (CST)">
+    <div class="book" data-level="3.2" data-basepath=".." data-revision="Tue Jul 28 2015 14:54:47 GMT+0800 (CST)">
     
 
 <div class="book-summary">
@@ -368,6 +368,24 @@
         <span class="hljs-keyword">char</span> c = <span class="hljs-string">&apos;E&apos;</span>;
         write(atrace_marker_fd, &amp;c, <span class="hljs-number">1</span>);
     }
+}
+</code></pre>
+<ul>
+<li>atrace_marker_fd = open(&quot;/sys/kernel/debug/tracing/trace_marker&quot;, O_WRONLY);</li>
+</ul>
+<pre><code class="lang-cpp"><span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">atrace_init_once</span><span class="hljs-params">()</span>
+</span>{
+    atrace_marker_fd = open(<span class="hljs-string">&quot;/sys/kernel/debug/tracing/trace_marker&quot;</span>, O_WRONLY);
+    <span class="hljs-keyword">if</span> (atrace_marker_fd == -<span class="hljs-number">1</span>) {
+        ALOGE(<span class="hljs-string">&quot;Error opening trace file: %s (%d)&quot;</span>, strerror(errno), errno);
+        atrace_enabled_tags = <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">goto</span> done;
+    }
+
+    atrace_enabled_tags = atrace_get_property();
+
+done:
+    android_atomic_release_store(<span class="hljs-number">1</span>, &amp;atrace_is_ready);
 }
 </code></pre>
 <pre><code class="lang-cpp"><span class="hljs-comment">// Trace.h</span>
