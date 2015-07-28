@@ -36,7 +36,7 @@
     <body>
         
         
-    <div class="book" data-level="3.1" data-basepath=".." data-revision="Tue Jul 28 2015 14:54:47 GMT+0800 (CST)">
+    <div class="book" data-level="3.1" data-basepath=".." data-revision="Tue Jul 28 2015 15:04:22 GMT+0800 (CST)">
     
 
 <div class="book-summary">
@@ -329,30 +329,30 @@
 <li>systrace.py</li>
 </ul>
 <pre><code class="lang-py"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">main</span><span class="hljs-params">()</span>:</span>
-  options, categories = parse_options(sys.argv)
-  agents = create_agents(options, categories)
+    options, categories = parse_options(sys.argv)
+    agents = create_agents(options, categories)
 
-  <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> agents:
-    dirs = DEFAULT_AGENT_DIR
-    <span class="hljs-keyword">if</span> options.agent_dirs:
-      dirs += <span class="hljs-string">&apos;,&apos;</span> + options.agent_dirs
-    <span class="hljs-keyword">print</span> &gt;&gt; sys.stderr, (<span class="hljs-string">&apos;No systrace agent is available in directories |%s|.&apos;</span>
+    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> agents:
+        dirs = DEFAULT_AGENT_DIR
+        <span class="hljs-keyword">if</span> options.agent_dirs:
+            dirs += <span class="hljs-string">&apos;,&apos;</span> + options.agent_dirs
+        <span class="hljs-keyword">print</span> &gt;&gt; sys.stderr, (<span class="hljs-string">&apos;No systrace agent is available in directories |%s|.&apos;</span>
                           % dirs)
-    sys.exit(<span class="hljs-number">1</span>)
+        sys.exit(<span class="hljs-number">1</span>)
 
-  <span class="hljs-keyword">for</span> a <span class="hljs-keyword">in</span> agents:
-    <span class="hljs-comment"># &#x555F;&#x52D5;&#x3000;atrace&#x3000;= agents/atrace_agent.py</span>
-    a.start()
+    <span class="hljs-keyword">for</span> a <span class="hljs-keyword">in</span> agents:
+        <span class="hljs-comment"># &#x555F;&#x52D5;&#x3000;atrace&#x3000;= agents/atrace_agent.py</span>
+        a.start()
 
-  <span class="hljs-keyword">for</span> a <span class="hljs-keyword">in</span> agents:
-    <span class="hljs-comment"># &#x6536;&#x96C6;&#x8CC7;&#x6599;</span>
-    a.collect_result()
-    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> a.expect_trace():
-      <span class="hljs-comment"># Nothing more to do.</span>
-      <span class="hljs-keyword">return</span>
+    <span class="hljs-keyword">for</span> a <span class="hljs-keyword">in</span> agents:
+        <span class="hljs-comment"># &#x6536;&#x96C6;&#x8CC7;&#x6599;</span>
+        a.collect_result()
+        <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> a.expect_trace():
+            <span class="hljs-comment"># Nothing more to do.</span>
+            <span class="hljs-keyword">return</span>
 
-  script_dir = os.path.dirname(os.path.abspath(sys.argv[<span class="hljs-number">0</span>]))
-  write_trace_html(options.output_file, script_dir, agents)
+    script_dir = os.path.dirname(os.path.abspath(sys.argv[<span class="hljs-number">0</span>]))
+    write_trace_html(options.output_file, script_dir, agents)
 </code></pre>
 <ul>
 <li>&#x555F;&#x52D5;&#x3000;atrace&#x3000;= agents/atrace_agent.py</li>
@@ -362,14 +362,14 @@
 <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">start</span><span class="hljs-params">(self)</span>:</span>
 tracer_args = self._construct_trace_command()
 <span class="hljs-keyword">try</span>:
-self._adb = subprocess.Popen(tracer_args, stdout=subprocess.PIPE,
+    self._adb = subprocess.Popen(tracer_args, stdout=subprocess.PIPE,
                            stderr=subprocess.PIPE)
 <span class="hljs-keyword">except</span> OSError <span class="hljs-keyword">as</span> error:
-<span class="hljs-keyword">print</span> &gt;&gt; sys.stderr, (
-  <span class="hljs-string">&apos;The command &quot;%s&quot; failed with the following error:&apos;</span> %
-  <span class="hljs-string">&apos; &apos;</span>.join(tracer_args))
-<span class="hljs-keyword">print</span> &gt;&gt; sys.stderr, <span class="hljs-string">&apos;    &apos;</span>, error
-sys.exit(<span class="hljs-number">1</span>)
+    <span class="hljs-keyword">print</span> &gt;&gt; sys.stderr, (
+        <span class="hljs-string">&apos;The command &quot;%s&quot; failed with the following error:&apos;</span> %
+        <span class="hljs-string">&apos; &apos;</span>.join(tracer_args))
+    <span class="hljs-keyword">print</span> &gt;&gt; sys.stderr, <span class="hljs-string">&apos;    &apos;</span>, error
+    sys.exit(<span class="hljs-number">1</span>)
 </code></pre>
 <ul>
 <li>collect_result</li>
