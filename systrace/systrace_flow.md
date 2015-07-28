@@ -45,6 +45,26 @@ static inline void atrace_end(uint64_t tag)
     }
 }
 ```
+- atrace_marker_fd = open("/sys/kernel/debug/tracing/trace_marker", O_WRONLY);
+
+```cpp
+static void atrace_init_once()
+{
+    atrace_marker_fd = open("/sys/kernel/debug/tracing/trace_marker", O_WRONLY);
+    if (atrace_marker_fd == -1) {
+        ALOGE("Error opening trace file: %s (%d)", strerror(errno), errno);
+        atrace_enabled_tags = 0;
+        goto done;
+    }
+
+    atrace_enabled_tags = atrace_get_property();
+
+done:
+    android_atomic_release_store(1, &atrace_is_ready);
+}
+
+
+```
 
 ```cpp
 // Trace.h
