@@ -5,7 +5,7 @@
         
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <title>systrace.py | </title>
+        <title>Linux內存管理之分頁機制 | </title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="generator" content="GitBook 2.1.0">
@@ -25,10 +25,10 @@
         
     
     
-    <link rel="next" href="../systrace/systrace_flow.html" />
+    <link rel="next" href="../linux_kernel/26.html" />
     
     
-    <link rel="prev" href="../systrace/index.html" />
+    <link rel="prev" href="../linux_kernel/ulk.html" />
     
 
         
@@ -36,7 +36,7 @@
     <body>
         
         
-    <div class="book" data-level="3.1" data-basepath=".." data-revision="Tue Aug 04 2015 16:59:25 GMT+0800 (CST)">
+    <div class="book" data-level="2.5" data-basepath=".." data-revision="Tue Aug 04 2015 16:59:25 GMT+0800 (CST)">
     
 
 <div class="book-summary">
@@ -157,7 +157,7 @@
             
         </li>
     
-        <li class="chapter " data-level="2.5" data-path="linux_kernel/25.html">
+        <li class="chapter active" data-level="2.5" data-path="linux_kernel/25.html">
             
                 
                     <a href="../linux_kernel/25.html">
@@ -253,7 +253,7 @@
             <ul class="articles">
                 
     
-        <li class="chapter active" data-level="3.1" data-path="systrace/systracepy.html">
+        <li class="chapter " data-level="3.1" data-path="systrace/systracepy.html">
             
                 
                     <a href="../systrace/systracepy.html">
@@ -429,62 +429,31 @@
                 
                     <section class="normal" id="section-">
                     
-                        <h1 id="systrace-py">systrace.py</h1>
-<ul>
-<li>systrace.py</li>
-</ul>
-<pre><code class="lang-py"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">main</span><span class="hljs-params">()</span>:</span>
-    options, categories = parse_options(sys.argv)
-    agents = create_agents(options, categories)
-
-    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> agents:
-        dirs = DEFAULT_AGENT_DIR
-        <span class="hljs-keyword">if</span> options.agent_dirs:
-            dirs += <span class="hljs-string">&apos;,&apos;</span> + options.agent_dirs
-        <span class="hljs-keyword">print</span> &gt;&gt; sys.stderr, (<span class="hljs-string">&apos;No systrace agent is available in directories |%s|.&apos;</span>
-                          % dirs)
-        sys.exit(<span class="hljs-number">1</span>)
-
-    <span class="hljs-keyword">for</span> a <span class="hljs-keyword">in</span> agents:
-        <span class="hljs-comment"># &#x555F;&#x52D5;&#x3000;atrace&#x3000;= agents/atrace_agent.py</span>
-        a.start()
-
-    <span class="hljs-keyword">for</span> a <span class="hljs-keyword">in</span> agents:
-        <span class="hljs-comment"># &#x6536;&#x96C6;&#x8CC7;&#x6599;</span>
-        a.collect_result()
-        <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> a.expect_trace():
-            <span class="hljs-comment"># Nothing more to do.</span>
-            <span class="hljs-keyword">return</span>
-
-    script_dir = os.path.dirname(os.path.abspath(sys.argv[<span class="hljs-number">0</span>]))
-    write_trace_html(options.output_file, script_dir, agents)
-</code></pre>
-<ul>
-<li>&#x555F;&#x52D5;&#x3000;atrace&#x3000;= agents/atrace_agent.py</li>
-</ul>
-<pre><code class="lang-py"><span class="hljs-comment"># tracer_args &#x5167;&#x5BB9;&#x3000;[&apos;adb&apos;, &apos;shell&apos;, &apos;atrace -z -t 100 sched gfx view wm memreclaim ; ps -t&apos;]</span>
-
-<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">start</span><span class="hljs-params">(self)</span>:</span>
-tracer_args = self._construct_trace_command()
-<span class="hljs-keyword">try</span>:
-    self._adb = subprocess.Popen(tracer_args, stdout=subprocess.PIPE,
-                           stderr=subprocess.PIPE)
-<span class="hljs-keyword">except</span> OSError <span class="hljs-keyword">as</span> error:
-    <span class="hljs-keyword">print</span> &gt;&gt; sys.stderr, (
-        <span class="hljs-string">&apos;The command &quot;%s&quot; failed with the following error:&apos;</span> %
-        <span class="hljs-string">&apos; &apos;</span>.join(tracer_args))
-    <span class="hljs-keyword">print</span> &gt;&gt; sys.stderr, <span class="hljs-string">&apos;    &apos;</span>, error
-    sys.exit(<span class="hljs-number">1</span>)
-</code></pre>
-<ul>
-<li>collect_result</li>
-</ul>
-<pre><code class="lang-py"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">collect_result</span><span class="hljs-params">(self)</span>:</span>
-trace_data = self._collect_trace_data();
-<span class="hljs-keyword">if</span> self._expect_trace:
-    <span class="hljs-comment"># &#x8CC7;&#x6599;&#x4F5C;&#x8655;&#x7406;</span>
-    self._trace_data = self._preprocess_trace_data(trace_data);
-</code></pre>
+                        <h1 id="linux%E5%85%A7%E5%AD%98%E7%AE%A1%E7%90%86%E4%B9%8B%E5%88%86%E9%A0%81%E6%A9%9F%E5%88%B6">Linux&#x5167;&#x5B58;&#x7BA1;&#x7406;&#x4E4B;&#x5206;&#x9801;&#x6A5F;&#x5236;</h1>
+<p><img src="images/memory_man1.png" alt=""></p>
+<p>&#x524D;&#x9762;&#x4E00;&#x7BC7;&#x6587;&#x7AE0;&#x8B1B;&#x5230;&#x908F;&#x8F2F;&#x5730;&#x5740;&#x5230;&#x7DDA;&#x6027;&#x5730;&#x5740;&#x7684;&#x8F49;&#x63DB;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x5206;&#x6BB5;&#x6A5F;&#x5236;&#x7684;&#x5BE6;&#x73FE;&#xFF0E;&#x5206;&#x6BB5;&#x6A5F;&#x5236;&#x96D6;&#x7136;&#x80FD;&#x5920;&#x8B93;&#x7A0B;&#x5E8F;&#x54E1;&#x65B9;&#x4FBF;</p>
+<p>&#x5730;&#x7BA1;&#x7406;&#x7A0B;&#x5E8F;&#x7684;&#x5404;&#x500B;&#x6BB5;&#xFF0C;&#x4E26;&#x4E14;&#x53EF;&#x4EE5;&#x52D5;&#x614B;&#x8ABF;&#x6574;&#x6BB5;&#x7684;&#x5927;&#x5C0F;&#xFF0C;&#x800C;&#x4E14;&#x5C0D;&#x5167;&#x5B58;&#x7684;&#x788E;&#x7247;&#x7387;&#x4E5F;&#x5927;&#x5927;&#x6E1B;&#x5C0F;&#xFF0E;&#x4F46;&#x662F;&#x9084;&#x662F;&#x6C92;&#x6709;&#x89E3;&#x6C7A;</p>
+<p>&#x7A0B;&#x5E8F;&#x5927;&#x5C0F;&#x6BD4;&#x7269;&#x7406;&#x5167;&#x5B58;&#x9084;&#x5927;&#x7684;&#x554F;&#x984C;&#xFF0C;&#x9019;&#x6642;&#x5019;&#x5C31;&#x51FA;&#x73FE;&#x4E86;&#x5206;&#x9801;&#x6A5F;&#x5236;&#xFF0C;&#x5206;&#x9801;&#x6A5F;&#x5236;&#x7684;&#x51FA;&#x73FE;&#x6700;&#x5927;&#x7684;&#x9AD4;&#x73FE;&#x5C31;&#x662F;&#x865B;&#x64EC;&#x5167;&#x5B58;&#xFF0C;&#x865B;</p>
+<p>&#x64EC;&#x5167;&#x5B58;&#x7684;&#x5BE6;&#x73FE;&#x53EF;&#x4EE5;&#x8B93;&#x5927;&#x7684;&#x7A0B;&#x5E8F;&#x88DD;&#x5165;&#x5167;&#x5B58;&#xFF0E;&#x5206;&#x9801;&#x6A5F;&#x5236;&#x7684;&#x5BE6;&#x73FE;&#x9084;&#x5C0E;&#x81F4;&#x4E86;&#x90E8;&#x5206;&#x7A0B;&#x5E8F;&#x88DD;&#x5165;&#xFF0C;&#x6309;&#x9700;&#x5206;&#x914D;&#x5167;&#x5B58;&#xFF0C;&#x4EE3;&#x78BC;&#x5171;&#x4EAB;</p>
+<p>&#x7B49;&#xFF0E;
+&#x6839;&#x64DA;&#x4E0A;&#x5716;&#xFF0C;&#x908F;&#x8F2F;&#x5730;&#x5740;&#x901A;&#x904E;&#x5206;&#x6BB5;&#x6A5F;&#x5236;&#x8B8A;&#x6210;&#x7DDA;&#x6027;&#x5730;&#x5740;&#xFF0C;&#x7DDA;&#x6027;&#x5730;&#x5740;&#x901A;&#x904E;&#x5206;&#x9801;&#x6A5F;&#x5236;&#x8B8A;&#x6210;&#x7269;&#x7406;&#x5730;&#x5740;&#x3002;&#x90A3;&#x9EBC;&#x600E;&#x9EBC;&#x734E;&#x7DDA;&#x6027;</p>
+<p>&#x5730;&#x5740;&#x8F49;&#x63DB;&#x6210;&#x7269;&#x7406;&#x5730;&#x5740;&#x5462;&#xFF1F;&#x9996;&#x5148;&#xFF0C;&#x5C0D;&#x65BC;&#x6C92;&#x6709;&#x555F;&#x7528;&#x5206;&#x9801;&#x6A5F;&#x5236;&#x7684;&#x7CFB;&#x7D71;&#xFF08;&#x901A;&#x904E;&#x4E00;&#x500B;&#x5BC4;&#x5B58;&#x5668;&#x7684;&#x67D0;&#x4E00;&#x500B;&#x6BD4;&#x7279;&#x5224;&#x65B7;&#xFF09;&#x3002;&#x5247;&#x76F4;</p>
+<p>&#x63A5;&#x628A;&#x7DDA;&#x6027;&#x5730;&#x5740;&#x6620;&#x5C04;&#x5230;&#x7269;&#x7406;&#x5730;&#x5740;&#xFF0C;&#x7269;&#x7406;&#x5730;&#x5740;&#x50B3;&#x5165;&#x5230;&#x5730;&#x5740;&#x7E3D;&#x7DDA;&#x4E0A;&#x3002;&#x82E5;&#x662F;&#x555F;&#x7528;&#x4E86;&#x5206;&#x9801;&#x6A5F;&#x5236;&#xFF0C;CPU&#x6703;&#x628A;&#x7DDA;&#x6027;&#x5730;&#x5740;&#x9032;&#x884C;</p>
+<p>&#x62C6;&#x5206;&#x3002;</p>
+<p>&#x9019;&#x88E1;&#x5F15;&#x5165;&#x5148;&#x9801;&#x7684;&#x6982;&#x5FF5;&#xFF0C;OS&#x628A;&#x865B;&#x64EC;&#x5167;&#x5B58;&#x5207;&#x5272;&#xFF0C;&#x6BCF;&#x90E8;&#x5206;&#x7684;&#x5927;&#x5C0F;&#x90FD;&#x662F;&#x4E00;&#x6A23;&#x7684;&#xFF08;&#x4E00;&#x822C;&#x53EF;&#x4EE5;&#x6839;&#x64DA;&#x786C;&#x4EF6;&#x6307;&#x5B9A;&#xFF09;&#xFF0C;&#x6BCF;</p>
+<p>&#x90E8;&#x5206;&#x5C31;&#x53EB;&#x505A;&#x9801;&#xFF08;Page&#xFF09;&#xFF0C;&#x6BCF;&#x5F35;&#x9801;&#x90FD;&#x5C0D;&#x61C9;&#x7269;&#x7406;&#x5167;&#x5B58;&#x4E2D;&#x7684;&#x9801;&#x6846;&#xFF08;Page Frame&#xFF0C;&#x5176;&#x5BE6;&#x5C31;&#x662F;&#x4F9D;&#x6B21;&#x500B;&#x5C0D;&#x61C9;&#x7684;&#x95DC;&#x4FC2;&#xFF09;&#x3002;</p>
+<p>&#x4F46;&#x662F;&#x7DDA;&#x6027;&#x5730;&#x5740;&#x4E2D;&#x67D0;&#x500B;&#x6A19;&#x865F;&#x70BA;N&#x7684;&#x9801;&#xFF0C;&#x5728;&#x7269;&#x7406;&#x5167;&#x5B58;&#x4E2D;&#x6A19;&#x865F;&#x53EF;&#x4EE5;&#x662F;M&#xFF08;N&#xFF01;=M&#xFF09;&#x3002;&#x4E5F;&#x5C31;&#x8AAA;&#x53EF;&#x4EE5;&#x6BCF;&#x500B;&#x7DDA;&#x6027;&#x5730;&#x5740;&#x9801;&#x90FD;</p>
+<p>&#x5728;&#x7269;&#x7406;&#x5167;&#x5B58;&#x4E2D;&#x6709;&#x76F8;&#x5C0D;&#x61C9;&#x7684;&#x9801;&#x6846;&#x3002;&#x800C;&#x9801;&#x548C;&#x9801;&#x6846;&#x7684;&#x5C0D;&#x61C9;&#x95DC;&#x4FC2;&#x662F;&#x5B58;&#x5728;&#x9801;&#x8868;&#x88E1;&#x9762;&#x7684;&#xFF0C;&#x9019;&#x88E1;&#x53EF;&#x4EE5;&#x9019;&#x6A23;&#x7406;&#x89E3;&#xFF0C;&#x9801;&#x662F;&#x4E00;&#x500B;&#x51FD;</p>
+<p>&#x7CFB;&#x7D71;&#x7684;&#x8F38;&#x5165;&#xFF0C;&#x9801;&#x6846;&#x662F;&#x4E00;&#x500B;&#x7CFB;&#x7D71;&#x7684;&#x8F38;&#x51FA;&#xFF0C;&#x800C;&#x9801;&#x8868;&#x5C31;&#x662F;&#x9019;&#x500B;&#x7CFB;&#x7D71;&#xFF0E;&#x4F46;&#x662F;&#x4E00;&#x5F35;&#x9801;&#x8868;&#x8981;&#x8655;&#x7406;&#x6574;&#x6574;&#xFF14;&#xFF27;&#xFF08;32&#x4F4D;&#xFF09;&#x7684;&#x5927;&#x5C0F;</p>
+<p>&#xFF0C;&#x5149;&#x5149;&#x9019;&#x5F35;&#x9801;&#x8868;&#x5C31;&#x9700;&#x8981;&#x5F88;&#x5927;&#x4E86;&#xFF0E;&#x6240;&#x4EE5;&#x5C31;&#x5F15;&#x5165;&#x4E8C;&#x7D1A;&#x9801;&#x8868;&#x7684;&#x6982;&#x5FF5;&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x8AAA;&#x6210;&#x662F;&#x9801;&#x76EE;&#x9304;&#xFF0C;&#x9801;&#x76EE;&#x9304;&#x7684;&#x539F;&#x7406;&#x548C;&#x524D;&#x9762;&#x9801;</p>
+<p>&#x8868;&#x7684;&#x4F5C;&#x7528;&#x4E00;&#x6A23;&#xFF0C;&#x53EA;&#x4E0D;&#x904E;&#x9801;&#x76EE;&#x9304;&#x9019;&#x500B;&#x7CFB;&#x7D71;&#x7684;&#x8F38;&#x5165;&#x662F;&#x9801;&#x865F;&#xFF0C;&#x800C;&#x8F38;&#x51FA;&#x662F;&#x9801;&#x8868;&#x7684;&#x5730;&#x5740;&#xFF0E;</p>
+<p>&#x597D;&#x4E86;&#xFF0C;&#x7406;&#x89E3;&#x4E86;&#x4E0A;&#x9762;&#x7684;&#x57FA;&#x672C;&#x6982;&#x5FF5;&#x4E4B;&#x5F8C;&#xFF0C;&#x6211;&#x5011;&#x5C31;&#x958B;&#x59CB;&#x7DDA;&#x6027;&#x5730;&#x5740;&#x5230;&#x7269;&#x7406;&#x5730;&#x5740;&#x7684;&#x8F49;&#x63DB;&#xFF0E;&#x5C0D;&#x65BC;&#x4E00;&#x500B;&#x7DDA;&#x6027;&#x5730;&#x5740;&#xFF0C;&#x524D;&#x9762;&#x7684;10</p>
+<p>bits&#x7576;&#x4F5C;&#x9801;&#x76EE;&#x9304;&#x9805;&#xFF0C;&#x627E;&#x5230;&#x9801;&#x76EE;&#x9304;&#x9805;&#x5F8C;&#x5C31;&#x627E;&#x5230;&#x5C0D;&#x61C9;&#x7684;&#x9801;&#x8868;&#x8D77;&#x59CB;&#x5730;&#x5740;&#xFF0C;&#x6839;&#x64DA;&#x7DDA;&#x6027;&#x5730;&#x5740;&#x7684;&#x4E2D;&#x9593;&#x5F8C;&#x9762;10bits&#xFF08;&#x9801;&#x8868;&#x7684;</p>
+<p>&#x504F;&#x79FB;&#xFF09;&#xFF0B;&#x9801;&#x8868;&#x8D77;&#x59CB;&#x5730;&#x5740;&#xFF0C;&#x627E;&#x5230;&#x7269;&#x7406;&#x5167;&#x5B58;&#x4E2D;&#x7684;&#x9801;&#x6846;&#x5730;&#x5740;&#xFF0C;&#x5167;&#x5B58;&#x4E2D;&#x7684;&#x9801;&#x6846;&#x5730;&#x5740;&#xFF0B;&#x7DDA;&#x6027;&#x5730;&#x5740;&#x4F4E;&#xFF11;&#xFF12;&#x4F4D;&#x5C31;&#x662F;&#x5BE6;&#x969B;&#x7684;</p>
+<p>&#x7269;&#x7406;&#x5730;&#x5740;&#xFF0E;</p>
+<p>&#x540C;&#x6A23;&#x7684;&#xFF0C;&#x4E0A;&#x8FF0;&#x904E;&#x7A0B;&#x5728;&#x8A2A;&#x554F;&#x6700;&#x7D42;&#x7684;&#x7269;&#x7406;&#x5167;&#x5B58;&#x4E4B;&#x524D;&#xFF0C;&#x8981;&#x9032;&#x884C;&#x5169;&#x6B21;&#x5167;&#x5B58;&#x8A2A;&#x554F;&#xFF0C;&#x5169;&#x6B21;&#x67E5;&#x8868;&#xFF0C;&#x6548;&#x7387;&#x80AF;&#x5B9A;&#x5C31;&#x4F4E;&#x4E86;&#xFF0E;&#x73FE;&#x4EE3;</p>
+<p>&#x8A08;&#x7B97;&#x6A5F;&#x6703;&#x628A;&#x9801;&#x8868;&#x548C;&#x9801;&#x76EE;&#x9304;&#x4E5F;&#x7528;&#x786C;&#x4EF6;&#x9032;&#x884C;&#x7DE9;&#x5B58;&#xFF0C;&#x7576;&#x7136;&#x662F;&#x4E00;&#x90E8;&#x5206;&#x5E38;&#x7528;&#x7684;&#x9805;&#xFF0E;</p>
+<p>&#x7D9C;&#x4E0A;&#xFF0C;&#x5206;&#x9801;&#x6A5F;&#x5236;&#x5927;&#x6982;&#x5C31;&#x662F;&#x9019;&#x9EBC;&#x500B;&#x6D41;&#x7A0B;&#xFF0E;</p>
 
                     
                     </section>
@@ -495,10 +464,10 @@ trace_data = self._collect_trace_data();
         </div>
 
         
-        <a href="../systrace/index.html" class="navigation navigation-prev " aria-label="Previous page: systrace"><i class="fa fa-angle-left"></i></a>
+        <a href="../linux_kernel/ulk.html" class="navigation navigation-prev " aria-label="Previous page: ULK"><i class="fa fa-angle-left"></i></a>
         
         
-        <a href="../systrace/systrace_flow.html" class="navigation navigation-next " aria-label="Next page: ATRACE_CALL"><i class="fa fa-angle-right"></i></a>
+        <a href="../linux_kernel/26.html" class="navigation navigation-next " aria-label="Next page: Linux虛擬內存概述"><i class="fa fa-angle-right"></i></a>
         
     </div>
 </div>
